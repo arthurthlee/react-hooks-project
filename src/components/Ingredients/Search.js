@@ -23,6 +23,7 @@ const Search = React.memo(props => {
       }
       onLoadIngredients(loadedIngredients);
     });
+    // Array element = If any of the elements in the array change, then the useEffect runs again
   }, [enteredFilter, onLoadIngredients]);
 
   return (
