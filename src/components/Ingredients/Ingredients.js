@@ -21,9 +21,12 @@ function Ingredients() {
       }
       // setUserIngredients(loadedIngredients);
     });
+    // Array element = If any of the elements in the array change, then a rerender happens
   }, []);
 
-
+  useEffect(() => {
+    console.log('RENDERING INGREDIENTS', userIngredients);
+  }, [userIngredients]);
 
   const addIngredientHandler = ingredient => {
     fetch('https://react-hooks-update-10777.firebaseio.com/ingredients.json', {
