@@ -19,14 +19,18 @@ function Ingredients() {
           amount: responseData[key].amount
         });
       }
-      // setUserIngredients(loadedIngredients);
+      setUserIngredients(loadedIngredients);
     });
-    // Array element = If any of the elements in the array change, then a rerender happens
+    // Array element = If any of the elements in the array change, then the useEffect runs again
   }, []);
 
   useEffect(() => {
     console.log('RENDERING INGREDIENTS', userIngredients);
   }, [userIngredients]);
+
+  const filteredIngredientsHandler = filterIngredients => {
+    setUserIngredients(filterIngredients);
+  }
 
   const addIngredientHandler = ingredient => {
     fetch('https://react-hooks-update-10777.firebaseio.com/ingredients.json', {
@@ -48,7 +52,7 @@ function Ingredients() {
       <IngredientForm onAddIngredient={addIngredientHandler}/>
 
       <section>
-        <Search />
+        <Search onLoadIngredients={filteredIngredientsHandler}/>
         <IngredientList
           ingredients={userIngredients}
           onRemoveItem={() => {}}
