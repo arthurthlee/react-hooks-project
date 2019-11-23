@@ -9,7 +9,7 @@ const Search = React.memo(props => {
   const inputRef = useRef();
 
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       // Enteredfilter will be the old enteredFilter the user entered 500 ms ago
       // inputRef.current.value = current value of the enteredFilter
       if (enteredFilter === inputRef.current.value) {
@@ -30,7 +30,10 @@ const Search = React.memo(props => {
           });
       }
     }, 500);
-
+    // Cleanup function runs if the array contents below change (not on the initial render)
+    return () => {
+      clearTimeout(timer);
+    };
     // Array element = If any of the elements in the array change, then the useEffect runs again
   }, [enteredFilter, onLoadIngredients, inputRef]);
 
