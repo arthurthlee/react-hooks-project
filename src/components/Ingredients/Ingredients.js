@@ -30,6 +30,15 @@ function Ingredients() {
     });
   };
 
+  const removeIngredientHandler = ingredientId => {
+    fetch(`https://react-hooks-update-10777.firebaseio.com/ingredients/${ingredientId}.json`, {
+      method: 'DELETE'
+    }).then(response => {
+      setUserIngredients(prevIngredients =>
+        prevIngredients.filter(ingredient => ingredient.id !== ingredientId));
+    })
+  }
+
   return (
     <div className="App">
       <IngredientForm onAddIngredient={addIngredientHandler}/>
@@ -38,7 +47,7 @@ function Ingredients() {
         <Search onLoadIngredients={filteredIngredientsHandler}/>
         <IngredientList
           ingredients={userIngredients}
-          onRemoveItem={() => {}}
+          onRemoveItem={removeIngredientHandler}
         />
         {/* Need to add list here! */}
       </section>
